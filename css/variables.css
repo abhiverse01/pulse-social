@@ -1,0 +1,97 @@
+/* ============================================================
+   PULSE — Design Tokens (variables.css)
+   All CSS custom properties, design system foundation
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* ── Color palette ──────────────────────────────────────── */
+  --bg-base:     #07070f;
+  --bg-surface:  #0d0d1a;
+  --bg-elevated: #131322;
+  --bg-overlay:  #1a1a2e;
+  --bg-hover:    rgba(255, 255, 255, 0.04);
+  --bg-active:   rgba(255, 255, 255, 0.07);
+
+  --accent:        #7c5cfc;
+  --accent-hover:  #6a48e8;
+  --accent-soft:   rgba(124, 92, 252, 0.12);
+  --accent-glow:   rgba(124, 92, 252, 0.25);
+
+  --like-color:    #f43f5e;
+  --like-soft:     rgba(244, 63, 94, 0.12);
+  --bookmark-color: #f59e0b;
+
+  --success:   #22c55e;
+  --warning:   #f59e0b;
+  --error:     #ef4444;
+  --info:      #3b82f6;
+
+  /* ── Text ───────────────────────────────────────────────── */
+  --text-primary:   #eeeef5;
+  --text-secondary: #9494b0;
+  --text-muted:     #5c5c78;
+  --text-accent:    #a78bfa;
+
+  /* ── Borders ────────────────────────────────────────────── */
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(124, 92, 252, 0.35);
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ── Spacing & Sizing ───────────────────────────────────── */
+  --sidebar-w:   260px;
+  --rightbar-w:  290px;
+  --content-max: 640px;
+
+  /* ── Radii ──────────────────────────────────────────────── */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-2xl:  28px;
+  --r-full: 9999px;
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-sm:  0 1px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.7);
+  --glow:       0 0 20px rgba(124, 92, 252, 0.3);
+
+  /* ── Transitions ────────────────────────────────────────── */
+  --t-fast:   0.12s ease;
+  --t-base:   0.2s ease;
+  --t-slow:   0.35s ease;
+  --t-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Story gradient ─────────────────────────────────────── */
+  --story-gradient: linear-gradient(135deg, #a855f7, #ec4899, #f43f5e, #fb923c);
+}
+
+/* ── Light mode overrides ────────────────────────────────── */
+[data-theme="light"], .light-mode {
+  --bg-base:     #f2f2f8;
+  --bg-surface:  #ffffff;
+  --bg-elevated: #ececf6;
+  --bg-overlay:  #e4e4f0;
+  --bg-hover:    rgba(0, 0, 0, 0.04);
+  --bg-active:   rgba(0, 0, 0, 0.07);
+
+  --text-primary:   #0e0e1c;
+  --text-secondary: #4a4a68;
+  --text-muted:     #8888a8;
+  --text-accent:    #6c45e0;
+
+  --border:        rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.14);
+
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.15);
+}
