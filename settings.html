@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PULSE — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+  <div class="app-shell">
+    <div id="sidebar" class="sidebar"></div>
+    <div class="main-content">
+      <div class="content-header">
+        <h1>Settings</h1>
+      </div>
+
+      <div class="settings-layout" id="settings-container">
+
+        <!-- Settings sidebar nav -->
+        <nav class="settings-nav-panel">
+          <div class="settings-nav-title">Account</div>
+          <a href="#profile" class="settings-nav-item active" onclick="scrollToSection('section-profile', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Profile
+          </a>
+          <div class="settings-nav-title">Preferences</div>
+          <a href="#appearance" class="settings-nav-item" onclick="scrollToSection('section-appearance', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            Appearance
+          </a>
+          <div class="settings-nav-title">Security</div>
+          <a href="#password" class="settings-nav-item" onclick="scrollToSection('section-password', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Password
+          </a>
+          <div class="settings-nav-title">Danger Zone</div>
+          <a href="#danger" class="settings-nav-item danger" onclick="scrollToSection('section-danger', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            Delete Account
+          </a>
+        </nav>
+
+        <!-- Settings content -->
+        <div class="settings-content">
+
+          <!-- Profile section -->
+          <section class="settings-section" id="section-profile">
+            <div class="settings-section-header">
+              <h2>Profile</h2>
+              <p>Update your public profile information.</p>
+            </div>
+            <form id="profile-settings-form">
+              <!-- Avatar -->
+              <div class="form-group" style="margin-bottom:1.5rem;">
+                <label>Profile photo</label>
+                <div style="display:flex;align-items:center;gap:1.2rem;margin-top:0.5rem;">
+                  <div id="settings-avatar-display" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--border);overflow:hidden;flex-shrink:0;background:var(--bg-elevated);"></div>
+                  <label class="btn btn-outline btn-sm" style="cursor:pointer;">
+                    Change photo
+                    <input type="file" id="settings-avatar-input" accept="image/*" style="display:none">
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="settings-displayName">Display name</label>
+                  <input type="text" id="settings-displayName" maxlength="50" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                  <label for="settings-username">Username</label>
+                  <div class="input-with-prefix">
+                    <span class="input-prefix">@</span>
+                    <input type="text" id="settings-username" maxlength="30" placeholder="username">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="settings-email">Email address</label>
+                <input type="email" id="settings-email" placeholder="you@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-bio">Bio</label>
+                <textarea id="settings-bio" rows="3" maxlength="200" placeholder="Tell the world who you are"></textarea>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="settings-location">Location</label>
+                  <input type="text" id="settings-location" maxlength="60" placeholder="City, Country">
+                </div>
+                <div class="form-group">
+                  <label for="settings-website">Website</label>
+                  <input type="text" id="settings-website" maxlength="100" placeholder="yoursite.com">
+                </div>
+              </div>
+
+              <div id="profile-settings-error" class="form-error" style="display:none;"></div>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+          </section>
+
+          <!-- Appearance section -->
+          <section class="settings-section" id="section-appearance">
+            <div class="settings-section-header">
+              <h2>Appearance</h2>
+              <p>Customize how PULSE looks for you.</p>
+            </div>
+            <div class="settings-toggle-row">
+              <div>
+                <div class="settings-toggle-label">Dark mode</div>
+                <div class="settings-toggle-sub">Toggle between dark and light theme</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Password section -->
+          <section class="settings-section" id="section-password">
+            <div class="settings-section-header">
+              <h2>Change Password</h2>
+              <p>Choose a strong password to protect your account.</p>
+            </div>
+            <form id="password-form">
+              <div class="form-group">
+                <label for="current-password">Current password</label>
+                <input type="password" id="current-password" placeholder="••••••••" autocomplete="current-password">
+              </div>
+              <div class="form-group">
+                <label for="new-password">New password</label>
+                <input type="password" id="new-password" placeholder="Min. 6 characters" autocomplete="new-password">
+              </div>
+              <div class="form-group">
+                <label for="confirm-password">Confirm new password</label>
+                <input type="password" id="confirm-password" placeholder="••••••••" autocomplete="new-password">
+              </div>
+              <div id="password-error" class="form-error" style="display:none;"></div>
+              <button type="submit" class="btn btn-primary">Update password</button>
+            </form>
+          </section>
+
+          <!-- Danger zone section -->
+          <section class="settings-section" id="section-danger">
+            <div class="settings-section-header">
+              <h2 style="color:var(--error);">Danger Zone</h2>
+              <p>These actions are permanent and cannot be undone.</p>
+            </div>
+            <div class="settings-danger-card">
+              <div>
+                <div style="font-weight:600;margin-bottom:0.25rem;">Delete your account</div>
+                <div style="font-size:0.875rem;color:var(--text-muted);">Permanently delete your account and all associated data.</div>
+              </div>
+              <button class="btn btn-danger" id="delete-account-btn">Delete account</button>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav"></nav>
+
+  <script src="data/seed.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/media.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/settings.js"></script>
+  <script>
+    const currentUser = App.init(true);
+    if (currentUser) Settings.init(currentUser);
+
+    function scrollToSection(id, link) {
+      document.querySelectorAll('.settings-nav-item').forEach(el => el.classList.remove('active'));
+      link.classList.add('active');
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return false;
+    }
+  </script>
+</body>
+</html>
