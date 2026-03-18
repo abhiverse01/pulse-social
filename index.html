@@ -1,1117 +1,993 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>PULSE — Social Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>PULSE ◈ — Godmode</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* =========================================
-       CSS VARIABLES & THEME (Light Default)
-       ========================================= */
+    /* ============================================================
+       GODMODE CSS SYSTEM
+       ============================================================ */
+    
+    /* --- VARIABLES --- */
     :root {
-      /* Palette - Light Theme */
-      --bg-body: #f0f2f5;
-      --bg-card: #ffffff;
-      --bg-hover: #f2f2f2;
-      --bg-elevated: #ffffff;
-      --border: #e4e6eb;
-      --border-light: #f0f2f5;
-
-      /* Text */
-      --text-main: #050505;
-      --text-muted: #65676b;
-      --text-light: #b0b3b8;
-
-      /* Brand */
-      --primary: #6366f1; /* Indigo */
-      --primary-hover: #4f46e5;
-      --primary-text: #ffffff;
+      /* Palette: Midnight & Neon */
+      --bg-deep:      #050508;
+      --bg-surface:   #0f0f16;
+      --bg-glass:     rgba(20, 20, 30, 0.7);
+      --bg-glass-heavy: rgba(10, 10, 18, 0.85);
+      --bg-hover:     rgba(255, 255, 255, 0.05);
+      --bg-active:    rgba(255, 255, 255, 0.1);
       
-      --accent: #ec4899; /* Pink */
+      --accent:       #8b5cf6;       /* Violet */
+      --accent-glow:  rgba(139, 92, 246, 0.5);
+      --accent-gradient: linear-gradient(135deg, #8b5cf6, #d946ef);
+      
+      --success:      #10b981;
+      --warning:      #f59e0b;
+      --error:        #ef4444;
+      --info:         #3b82f6;
 
-      /* Status */
-      --success: #10b981;
-      --warning: #f59e0b;
-      --error: #ef4444;
+      --text-main:    #ffffff;
+      --text-sec:     #94a3b8;
+      --text-mute:    #475569;
+      
+      --border:       rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --border-glow:  rgba(139, 92, 246, 0.3);
 
-      /* Dimensions */
-      --header-height: 60px;
-      --sidebar-width: 275px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
+      --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      
+      --sidebar-w:   280px;
+      --rightbar-w:  320px;
+      --content-max: 680px;
+
+      --radius-sm:  8px;
+      --radius-md:  12px;
+      --radius-lg:  16px;
+      --radius-xl:  24px;
       --radius-full: 9999px;
 
-      /* Transitions */
-      --t-fast: 0.2s ease;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --shadow-sm:  0 2px 8px rgba(0,0,0,0.2);
+      --shadow-lg:  0 10px 40px -10px rgba(0,0,0,0.5);
+      --shadow-glow: 0 0 20px var(--accent-glow);
+
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    [data-theme="dark"] {
-      --bg-body: #18191a;
-      --bg-card: #242526;
-      --bg-hover: #3a3b3c;
-      --bg-elevated: #242526;
-      --border: #3e4042;
-      --border-light: #3e4042;
-      --text-main: #e4e6eb;
-      --text-muted: #b0b3b8;
-      --text-light: #65676b;
-      --primary: #818cf8;
-      --primary-hover: #6366f1;
+    [data-theme="light"] {
+      --bg-deep:      #f8fafc;
+      --bg-surface:   #ffffff;
+      --bg-glass:     rgba(255, 255, 255, 0.8);
+      --bg-glass-heavy: rgba(255, 255, 255, 0.95);
+      --bg-hover:     rgba(0, 0, 0, 0.04);
+      --bg-active:    rgba(0, 0, 0, 0.08);
+      --text-main:    #0f172a;
+      --text-sec:     #475569;
+      --text-mute:    #94a3b8;
+      --border:       rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.12);
+      --shadow-sm:  0 2px 10px rgba(0,0,0,0.05);
+      --shadow-lg:  0 10px 30px -5px rgba(0,0,0,0.1);
     }
 
-    /* =========================================
-       RESET & BASE
-       ========================================= */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* --- RESET & BASE --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+    html { font-size: 16px; scroll-behavior: smooth; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-body);
+      font-family: var(--font-main);
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(217, 70, 239, 0.08), transparent 25%);
       color: var(--text-main);
-      font-size: 15px;
       line-height: 1.5;
+      min-height: 100vh;
       overflow-x: hidden;
-      transition: background-color var(--t-fast), color var(--t-fast);
+      transition: background-color 0.3s ease;
     }
-    a { text-decoration: none; color: inherit; cursor: pointer; }
-    button { font-family: inherit; border: none; background: none; cursor: pointer; }
-    input, textarea { font-family: inherit; }
-    ul { list-style: none; }
 
-    /* =========================================
-       UTILITIES & COMPONENTS
-       ========================================= */
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-sec); }
+
+    a { color: inherit; text-decoration: none; cursor: pointer; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    
+    /* Typography */
+    h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
+    p { color: var(--text-sec); }
+    .text-gradient {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* --- UTILITIES --- */
+    .glass { background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .glass-panel { background: var(--bg-glass); border: 1px solid var(--border); backdrop-filter: blur(12px); border-radius: var(--radius-xl); }
+    .flex-center { display: flex; align-items: center; justify-content: center; }
     .hidden { display: none !important; }
-    .fade-in { animation: fadeIn 0.3s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-enter { animation: fadeIn 0.3s var(--ease-smooth) forwards; }
+    .slide-up { animation: slideUp 0.4s var(--ease-spring) forwards; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Buttons */
+    /* --- COMPONENTS --- */
     .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 8px 16px; border-radius: var(--radius-full); font-weight: 600;
-      transition: all var(--t-fast); gap: 8px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.6rem 1.25rem; border-radius: var(--radius-full); font-weight: 600;
+      font-size: 0.9rem; transition: all 0.2s var(--ease-smooth); position: relative; overflow: hidden;
     }
-    .btn-sm { padding: 6px 12px; font-size: 0.85rem; }
-    .btn-primary { background: var(--primary); color: var(--primary-text); }
-    .btn-primary:hover { background: var(--primary-hover); }
-    .btn-outline { border: 1px solid var(--border); color: var(--text-main); background: transparent; }
-    .btn-outline:hover { background: var(--bg-hover); }
-    .btn-ghost { color: var(--text-muted); }
-    .btn-ghost:hover { background: rgba(0,0,0,0.05); color: var(--text-main); }
-    .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--error); }
-    .btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
-    .btn-icon { padding: 8px; border-radius: 50%; color: var(--text-main); }
-    .btn-icon:hover { background: var(--bg-hover); }
+    .btn-primary { background: var(--accent-gradient); color: #fff; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
+    .btn-primary:active { transform: translateY(0); }
+    
+    .btn-ghost { color: var(--text-sec); background: transparent; }
+    .btn-ghost:hover { color: var(--text-main); background: var(--bg-hover); }
+    
+    .btn-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-sec); transition: 0.2s; }
+    .btn-icon:hover { background: var(--bg-hover); color: var(--accent); transform: scale(1.05); }
 
-    /* Form Elements */
-    .form-group { margin-bottom: 1rem; }
-    .form-label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
-    .form-input, .form-textarea {
-      width: 100%; padding: 10px 14px; border: 1px solid var(--border);
-      border-radius: var(--radius-md); background: var(--bg-card);
-      color: var(--text-main); font-size: 0.95rem; transition: border var(--t-fast);
+    .input-field {
+      width: 100%; background: var(--bg-deep); border: 1px solid var(--border);
+      color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md);
+      font-family: inherit; transition: 0.2s;
     }
-    .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary); }
-    .form-textarea { resize: vertical; min-height: 80px; }
+    .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
 
-    /* Avatar */
-    .avatar { border-radius: 50%; object-fit: cover; background: #ddd; flex-shrink: 0; }
-    .avatar-placeholder {
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; text-transform: uppercase;
+    .avatar { border-radius: 50%; object-fit: cover; background: var(--bg-surface); border: 1px solid var(--border); flex-shrink: 0; }
+    .story-ring {
+      padding: 2.5px; border-radius: 50%;
+      background: var(--border); position: relative;
+    }
+    .story-ring.has-story {
+      background: var(--accent-gradient);
+      box-shadow: 0 0 10px var(--accent-glow);
     }
 
-    /* Toast Notifications */
-    #toast-container {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none;
-    }
-    .toast {
-      background: var(--text-main); color: var(--bg-body);
-      padding: 12px 24px; border-radius: var(--radius-full);
-      box-shadow: var(--shadow-lg); font-weight: 500; font-size: 0.9rem;
-      display: flex; align-items: center; gap: 10px;
-      animation: slideUp 0.3s ease; pointer-events: auto;
-    }
-    .toast.success { background: var(--success); color: white; }
-    .toast.error { background: var(--error); color: white; }
-    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); z-index: 5000; display: flex;
-      align-items: center; justify-content: center; opacity: 0; pointer-events: none;
-      transition: opacity 0.2s; backdrop-filter: blur(4px);
-    }
-    .modal-overlay.active { opacity: 1; pointer-events: auto; }
-    .modal-content {
-      background: var(--bg-card); width: 90%; max-width: 500px;
-      border-radius: var(--radius-lg); padding: 24px; position: relative;
-      box-shadow: var(--shadow-lg); transform: scale(0.95); transition: transform 0.2s;
-      max-height: 90vh; overflow-y: auto;
-    }
-    .modal-overlay.active .modal-content { transform: scale(1); }
-    .modal-close { position: absolute; top: 16px; right: 16px; font-size: 24px; color: var(--text-muted); }
-    .modal-close:hover { color: var(--text-main); }
-
-    /* =========================================
-       AUTH LAYOUT
-       ========================================= */
-    .auth-page {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
-    }
-    .auth-card {
-      background: var(--bg-card); width: 100%; max-width: 420px;
-      padding: 40px; border-radius: 24px; box-shadow: var(--shadow-lg); text-align: center;
-    }
-    .auth-logo { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .auth-logo-mark { font-size: 32px; }
-    .auth-tabs { display: flex; margin: 24px 0; background: var(--bg-body); padding: 4px; border-radius: 12px; }
-    .auth-tab { flex: 1; padding: 8px; border-radius: 8px; font-weight: 600; color: var(--text-muted); transition: all 0.2s; }
-    .auth-tab.active { background: var(--bg-card); color: var(--text-main); shadow: var(--shadow-sm); }
-
-    /* =========================================
-       MAIN APP LAYOUT
-       ========================================= */
-    .app-layout { display: flex; min-height: 100vh; }
+    /* --- LAYOUT --- */
+    #app { display: flex; min-height: 100vh; max-width: 1440px; margin: 0 auto; position: relative; }
     
     /* Sidebar */
-    .sidebar {
-      width: var(--sidebar-width); height: 100vh; position: sticky; top: 0;
-      background: var(--bg-card); border-right: 1px solid var(--border);
-      padding: 24px 16px; display: flex; flex-direction: column;
-      transition: transform 0.3s ease; z-index: 100;
+    aside.sidebar {
+      width: var(--sidebar-w); height: 100vh; position: fixed; top: 0; left: 0;
+      padding: 1.5rem 1rem; display: flex; flex-direction: column; border-right: 1px solid var(--border);
+      background: var(--bg-glass-heavy); backdrop-filter: blur(20px); z-index: 50;
     }
+    .logo { font-size: 1.5rem; font-weight: 800; padding: 0 0.75rem 2rem; display: flex; align-items: center; gap: 0.5rem; letter-spacing: -1px; }
+    .logo svg { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent-glow)); }
+    
     .nav-item {
-      display: flex; align-items: center; gap: 16px; padding: 12px 16px;
-      border-radius: var(--radius-full); color: var(--text-muted);
-      font-weight: 600; margin-bottom: 4px; transition: all 0.2s;
+      display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem;
+      border-radius: var(--radius-xl); color: var(--text-sec); font-weight: 600; font-size: 1rem;
+      transition: 0.2s; margin-bottom: 0.25rem;
     }
     .nav-item:hover { background: var(--bg-hover); color: var(--text-main); }
-    .nav-item.active { background: var(--primary); color: white; }
-    .nav-item.active:hover { background: var(--primary-hover); }
-    .sidebar-post-btn {
-      margin-top: 16px; background: var(--primary); color: white;
-      padding: 14px; border-radius: 24px; font-weight: 700; width: 100%;
-      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.1s;
-    }
-    .sidebar-post-btn:active { transform: scale(0.98); }
-
-    /* Main Content */
-    .main-content { flex: 1; max-width: 680px; margin: 0 auto; border-right: 1px solid var(--border); min-height: 100vh; }
-    .content-header { 
-      position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
-      padding: 16px; border-bottom: 1px solid var(--border); z-index: 50;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    [data-theme="dark"] .content-header { background: rgba(36, 37, 38, 0.85); }
+    .nav-item.active { background: var(--accent-gradient); color: #fff; box-shadow: var(--shadow-glow); }
+    .nav-item svg { width: 22px; height: 22px; stroke-width: 2; }
     
+    /* Main Content */
+    main.main-content {
+      margin-left: var(--sidebar-w); flex: 1; display: flex; justify-content: center;
+      min-height: 100vh; border-right: 1px solid var(--border); background: transparent;
+    }
+    .page-container { width: 100%; max-width: var(--content-max); min-width: 0; position: relative; }
+
     /* Right Panel */
-    .right-panel { width: 350px; padding: 24px; display: none; }
-    @media (min-width: 1100px) { .right-panel { display: block; } }
-
-    /* =========================================
-       FEED & POSTS
-       ========================================= */
-    .stories-bar { 
-      padding: 16px; display: flex; gap: 16px; overflow-x: auto; 
-      scrollbar-width: none; border-bottom: 1px solid var(--border);
+    aside.right-panel {
+      width: var(--rightbar-w); position: fixed; right: 0; top: 0; height: 100vh;
+      padding: 1.5rem; overflow-y: auto; border-left: 1px solid var(--border);
+      background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); z-index: 40;
     }
-    .stories-bar::-webkit-scrollbar { display: none; }
-    .story-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; min-width: 70px; }
-    .story-ring { 
-      width: 64px; height: 64px; border-radius: 50%; padding: 3px;
-      background: linear-gradient(45deg, var(--primary), var(--accent)); 
+
+    /* --- PAGE VIEWS --- */
+    .view-section { display: none; animation: fadeIn 0.3s ease; }
+    .view-section.active { display: block; }
+
+    /* Auth */
+    .auth-container {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at center, rgba(139,92,246,0.15) 0%, transparent 70%);
     }
-    .story-avatar-wrap { width: 100%; height: 100%; background: var(--bg-card); border-radius: 50%; padding: 2px; }
-    .story-label { font-size: 0.75rem; color: var(--text-muted); }
-
-    .post-composer-inline { padding: 16px; border-bottom: 1px solid var(--border); display: flex; gap: 12px; }
-    .composer-input-wrap { flex: 1; }
-    .composer-textarea {
-      width: 100%; border: none; background: transparent; resize: none; font-size: 1.1rem;
-      padding: 8px 0; outline: none; color: var(--text-main); min-height: 40px;
+    .auth-card {
+      width: 100%; max-width: 420px; padding: 2.5rem; background: var(--bg-glass);
+      border: 1px solid var(--border-strong); border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-lg); backdrop-filter: blur(30px);
+      animation: slideUp 0.5s var(--ease-spring);
     }
-    .composer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-
-    .post-card { padding: 16px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
-    .post-card:hover { background: rgba(0,0,0,0.01); }
-    .post-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
-    .post-author { display: flex; gap: 12px; align-items: center; }
-    .author-meta { display: flex; flex-direction: column; }
-    .author-name { font-weight: 700; font-size: 0.95rem; }
-    .author-time, .post-handle { font-size: 0.8rem; color: var(--text-muted); }
-    .post-content { margin-bottom: 12px; font-size: 1rem; white-space: pre-wrap; }
-    .post-actions { display: flex; justify-content: space-between; max-width: 400px; margin-top: 12px; }
-    .action-btn { 
-      display: flex; align-items: center; gap: 6px; color: var(--text-muted); 
-      font-weight: 600; font-size: 0.9rem; transition: color 0.2s;
+    
+    /* Feed & Posts */
+    .feed-header { position: sticky; top: 0; z-index: 30; background: rgba(5, 5, 8, 0.8); backdrop-filter: blur(12px); padding: 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .stories-tray { display: flex; gap: 1rem; padding: 1rem; overflow-x: auto; scrollbar-width: none; margin-bottom: 0.5rem; }
+    
+    .post-card {
+      background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-xl);
+      padding: 1.25rem; margin-bottom: 1rem; transition: 0.2s; position: relative;
     }
-    .action-btn:hover { color: var(--primary); }
-    .action-btn.liked { color: var(--accent); }
+    .post-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
+    
+    .post-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
+    .post-meta { display: flex; align-items: center; gap: 0.75rem; }
+    .post-actions { display: flex; gap: 1.5rem; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+    .action-btn { display: flex; align-items: center; gap: 0.4rem; color: var(--text-sec); font-size: 0.9rem; font-weight: 500; transition: 0.2s; }
+    .action-btn:hover { color: var(--text-main); }
+    .action-btn.liked { color: var(--error); }
+    .action-btn.liked svg { fill: var(--error); stroke: var(--error); animation: heartPop 0.4s var(--ease-spring); }
+    
+    @keyframes heartPop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
-    /* Hashtags & Mentions */
-    .hashtag { color: var(--primary); font-weight: 600; }
-    .mention { color: var(--primary); font-weight: 600; }
-    .link { color: var(--primary); text-decoration: underline; }
+    /* Composer */
+    .composer { padding: 1rem; border-bottom: 1px solid var(--border); background: var(--bg-surface); margin-bottom: 1rem; border-radius: var(--radius-xl); display: flex; gap: 1rem; }
+    .composer-input { flex: 1; background: transparent; border: none; resize: none; font-size: 1.1rem; color: var(--text-main); font-family: inherit; min-height: 24px; }
+    .composer-input::placeholder { color: var(--text-mute); }
 
-    /* =========================================
-       MESSAGES
-       ========================================= */
-    .messages-layout { display: flex; height: calc(100vh - 60px); overflow: hidden; }
-    .conv-list { width: 320px; border-right: 1px solid var(--border); overflow-y: auto; }
-    .conv-item { padding: 16px; display: flex; gap: 12px; cursor: pointer; transition: background 0.2s; border-bottom: 1px solid var(--border-light); }
+    /* Messages */
+    .chat-layout { display: flex; height: calc(100vh - 60px); overflow: hidden; }
+    .conv-list { width: 320px; border-right: 1px solid var(--border); overflow-y: auto; background: var(--bg-surface); }
+    .conv-item { padding: 1rem; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; gap: 0.75rem; transition: 0.2s; }
     .conv-item:hover, .conv-item.active { background: var(--bg-hover); }
-    .chat-area { flex: 1; display: flex; flex-direction: column; background: var(--bg-card); }
-    .chat-header { padding: 16px; border-bottom: 1px solid var(--border); font-weight: 700; display: flex; align-items: center; gap: 12px; }
-    .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-    .message { max-width: 70%; padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; position: relative; }
-    .message.mine { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 4px; }
-    .message.theirs { align-self: flex-start; background: var(--bg-hover); color: var(--text-main); border-bottom-left-radius: 4px; }
-    .chat-input { padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 12px; }
+    .chat-area { flex: 1; display: flex; flex-direction: column; background: var(--bg-deep); }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .message { max-width: 70%; padding: 0.75rem 1rem; border-radius: var(--radius-lg); font-size: 0.95rem; line-height: 1.4; position: relative; animation: slideUp 0.2s ease; }
+    .message.mine { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 2px; }
+    .message.theirs { align-self: flex-start; background: var(--bg-surface); border: 1px solid var(--border); border-bottom-left-radius: 2px; }
 
-    /* =========================================
-       PROFILE
-       ========================================= */
-    .profile-banner { height: 150px; background: linear-gradient(to right, #6366f1, #ec4899); }
-    .profile-header { padding: 0 16px 16px; position: relative; }
-    .profile-avatar-lg { 
-      width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--bg-card); 
-      margin-top: -60px; position: relative; background: var(--bg-card);
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none;
+      align-items: center; justify-content: center; backdrop-filter: blur(10px);
     }
-    .profile-stats { display: flex; gap: 24px; margin: 12px 0; font-size: 0.95rem; }
-    .stat-num { font-weight: 700; color: var(--text-main); }
-    .stat-label { color: var(--text-muted); }
+    #lightbox.active { display: flex; animation: fadeIn 0.2s; }
+    #lightbox img { max-width: 90%; max-height: 90vh; border-radius: var(--radius-sm); box-shadow: 0 0 50px rgba(0,0,0,0.5); }
 
-    /* =========================================
-       RESPONSIVE
-       ========================================= */
-    .mobile-nav { 
-      display: none; position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
-      background: var(--bg-card); border-top: 1px solid var(--border); 
-      justify-content: space-around; align-items: center; z-index: 900;
+    /* Mobile */
+    @media (max-width: 1024px) { aside.right-panel { display: none; } .main-content { border: none; } }
+    @media (max-width: 768px) {
+      aside.sidebar { display: none; }
+      main.main-content { margin-left: 0; padding-bottom: 80px; }
+      .mobile-nav { 
+        position: fixed; bottom: 0; left: 0; right: 0; height: 60px; 
+        background: var(--bg-glass-heavy); border-top: 1px solid var(--border);
+        display: flex; justify-content: space-around; align-items: center; z-index: 100;
+        backdrop-filter: blur(20px);
+      }
+      .conv-list { width: 80px; }
+      .conv-info { display: none; }
     }
-    .mobile-nav-item { color: var(--text-muted); padding: 10px; border-radius: 50%; }
-    .mobile-nav-item.active { color: var(--primary); }
+    @media (min-width: 769px) { .mobile-nav { display: none; } }
 
-    @media (max-width: 1000px) {
-      .sidebar { display: none; }
-      .mobile-nav { display: flex; }
-      .right-panel { display: none; }
-      .main-content { max-width: 100%; border: none; }
-      .conv-list { width: 100%; display: flex; }
-      .messages-layout { flex-direction: column; }
-      .chat-area { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; transform: translateX(100%); transition: transform 0.3s; }
-      .chat-area.open { transform: translateX(0); }
-    }
+    /* Toast & Modal */
+    .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast { background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; pointer-events: auto; animation: slideInRight 0.3s var(--ease-spring); }
+    @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s; }
+    .modal-content { background: var(--bg-surface); width: 90%; max-width: 500px; border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden; animation: modalPop 0.3s var(--ease-spring); }
+    @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* Particle Effect */
+    .particle { position: absolute; pointer-events: none; animation: floatUp 1s ease-out forwards; color: var(--error); }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-40px) scale(0); opacity: 0; } }
+
   </style>
 </head>
 <body>
 
-  <!-- Toast Container -->
-  <div id="toast-container"></div>
-
-  <!-- AUTH VIEW -->
-  <div id="view-auth" class="auth-page fade-in">
-    <div class="auth-card">
-      <div class="auth-logo">
-        <span class="auth-logo-mark">◈</span> PULSE
-      </div>
-      <p style="color:var(--text-muted); margin-bottom: 24px;">Where ideas spark and stories live</p>
-      
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tab-login" onclick="AuthUI.switchTab('login')">Sign In</button>
-        <button class="auth-tab" id="tab-register" onclick="AuthUI.switchTab('register')">Create Account</button>
-      </div>
-
-      <!-- Login Form -->
-      <div id="login-panel">
-        <div class="form-group">
-          <input type="text" id="login-email" class="form-input" placeholder="Email or Username" autocomplete="username">
-        </div>
-        <div class="form-group">
-          <input type="password" id="login-password" class="form-input" placeholder="Password" autocomplete="current-password">
-        </div>
-        <div id="login-error" class="toast error hidden" style="position:static; width:100%; margin-bottom:1rem; justify-content:center;"></div>
-        <button class="btn btn-primary" style="width:100%" onclick="AuthUI.handleLogin()">Sign In</button>
-        <div style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">
-          Demo: <strong>alex@pulse.app</strong> / <strong>password123</strong>
-        </div>
-      </div>
-
-      <!-- Register Form -->
-      <div id="register-panel" class="hidden">
-        <div class="form-group">
-          <input type="text" id="reg-name" class="form-input" placeholder="Full Name">
-        </div>
-        <div class="form-group">
-          <input type="text" id="reg-username" class="form-input" placeholder="Username">
-        </div>
-        <div class="form-group">
-          <input type="email" id="reg-email" class="form-input" placeholder="Email" autocomplete="email">
-        </div>
-        <div class="form-group">
-          <input type="password" id="reg-password" class="form-input" placeholder="Password" autocomplete="new-password">
-        </div>
-        <div id="reg-error" class="toast error hidden" style="position:static; width:100%; margin-bottom:1rem; justify-content:center;"></div>
-        <button class="btn btn-primary" style="width:100%" onclick="AuthUI.handleRegister()">Create Account</button>
-      </div>
-    </div>
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="UI.closeLightbox()">
+    <img id="lightbox-img" src="" alt="Full view">
   </div>
 
-  <!-- APP VIEW (Shell) -->
-  <div id="view-app" class="app-layout hidden">
+  <!-- TOASTS -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- MODAL CONTAINER -->
+  <div id="modal-root"></div>
+
+  <!-- AUTH VIEW -->
+  <section id="view-auth" class="view-section active">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="logo flex-center" style="justify-content: flex-start; margin-bottom: 2rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+          <span class="text-gradient">PULSE</span>
+        </div>
+        
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; background: var(--bg-deep); padding: 4px; border-radius: var(--radius-full);">
+          <button id="tab-login" class="btn" style="flex:1; background: var(--bg-surface); color: var(--text-main); box-shadow: var(--shadow-sm);" onclick="AuthUI.switch('login')">Sign In</button>
+          <button id="tab-register" class="btn" style="flex:1; color: var(--text-sec);" onclick="AuthUI.switch('register')">Join</button>
+        </div>
+
+        <form id="auth-form" onsubmit="AuthUI.submit(event)">
+          <div id="login-fields">
+            <div style="margin-bottom: 1rem;">
+              <label style="display:block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Email</label>
+              <input type="text" id="auth-email" class="input-field" placeholder="alex@pulse.app">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display:block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Password</label>
+              <input type="password" id="auth-pass" class="input-field" placeholder="••••••••">
+            </div>
+          </div>
+          
+          <div id="register-fields" class="hidden">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+              <div>
+                <label style="display:block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Name</label>
+                <input type="text" id="reg-name" class="input-field" placeholder="Alex Doe">
+              </div>
+              <div>
+                <label style="display:block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Username</label>
+                <input type="text" id="reg-user" class="input-field" placeholder="@alex">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Enter PULSE</button>
+          
+          <div style="margin-top: 1.5rem; text-align: center; font-size: 0.8rem; color: var(--text-mute);">
+            Demo Creds: <span style="color: var(--text-sec);">alex@pulse.app</span> / <span style="color: var(--text-sec);">password</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APP STRUCTURE (Hidden until login) -->
+  <div id="app-shell" class="hidden">
     
-    <!-- Sidebar -->
-    <nav class="sidebar">
-      <div class="auth-logo" style="margin-bottom: 32px; padding-left: 12px;">
-        <span class="auth-logo-mark">◈</span> PULSE
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+        <span class="text-gradient">PULSE</span>
       </div>
       
-      <a onclick="Router.go('feed')" class="nav-item" id="nav-feed">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Home
-      </a>
-      <a onclick="Router.go('explore')" class="nav-item" id="nav-explore">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        Explore
-      </a>
-      <a onclick="Router.go('notifications')" class="nav-item" id="nav-notifications">
-        <div style="position:relative">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-          <span id="badge-notifications" style="position:absolute; top:-5px; right:-5px; background:var(--error); width:16px; height:16px; border-radius:50%; font-size:10px; color:white; display:none; align-items:center; justify-content:center;">0</span>
-        </div>
-        Notifications
-      </a>
-      <a onclick="Router.go('messages')" class="nav-item" id="nav-messages">
-        <div style="position:relative">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          <span id="badge-messages" style="position:absolute; top:-5px; right:-5px; background:var(--error); width:16px; height:16px; border-radius:50%; font-size:10px; color:white; display:none; align-items:center; justify-content:center;">0</span>
-        </div>
-        Messages
-      </a>
-      <a onclick="Router.go('profile')" class="nav-item" id="nav-profile">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Profile
-      </a>
-      <a onclick="Router.go('settings')" class="nav-item" id="nav-settings">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-        Settings
-      </a>
+      <nav style="flex: 1;">
+        <a onclick="Router.go('feed')" class="nav-item active" id="nav-feed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Home
+        </a>
+        <a onclick="Router.go('explore')" class="nav-item" id="nav-explore">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          Explore
+        </a>
+        <a onclick="Router.go('notifications')" class="nav-item" id="nav-notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
+          Notifications <span id="badge-notif" class="hidden" style="margin-left:auto; background:var(--error); width:8px; height:8px; border-radius:50%;"></span>
+        </a>
+        <a onclick="Router.go('messages')" class="nav-item" id="nav-messages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+          Messages <span id="badge-msg" class="hidden" style="margin-left:auto; background:var(--error); width:8px; height:8px; border-radius:50%;"></span>
+        </a>
+        <a onclick="Router.go('profile')" class="nav-item" id="nav-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Profile
+        </a>
+      </nav>
 
-      <button class="sidebar-post-btn" onclick="App.openPostComposer()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <button onclick="UI.openComposer()" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-xl); margin-bottom: 1.5rem; padding: 0.9rem;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         Post
       </button>
 
-      <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border);">
-        <div class="nav-item" style="cursor: default; padding-left: 8px;">
-          <div id="current-user-avatar"></div>
-          <div style="display:flex; flex-direction:column; overflow:hidden;">
-            <span id="current-user-name" style="font-size:0.9rem;">User</span>
-            <span id="current-user-handle" style="font-size:0.8rem;">@handle</span>
-          </div>
-          <button onclick="Auth.logout()" style="margin-left:auto; color:var(--text-muted);" title="Sign out">
-             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Main Content Area -->
-    <main class="main-content" id="main-container">
-      <!-- Dynamic Content Injected Here -->
-    </main>
-
-    <!-- Right Panel -->
-    <aside class="right-panel">
-      <div style="margin-bottom: 24px;">
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 16px;">Who to follow</h3>
-        <div id="suggested-users"></div>
-      </div>
-      <div>
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 16px;">Trending</h3>
-        <div id="trending-topics"></div>
+      <div class="flex-center" style="justify-content: flex-start; gap: 0.75rem; padding: 0.75rem; border-radius: var(--radius-xl); cursor: pointer; transition: 0.2s;" onclick="Router.go('profile')" id="current-user-mini">
+        <!-- Injected by JS -->
       </div>
     </aside>
 
-    <!-- Mobile Nav -->
-    <nav class="mobile-nav">
-      <a onclick="Router.go('feed')" class="mobile-nav-item" id="mob-feed">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-      </a>
-      <a onclick="Router.go('explore')" class="mobile-nav-item" id="mob-explore">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </a>
-      <a onclick="App.openPostComposer()" class="mobile-nav-item" style="color:var(--primary)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </a>
-      <a onclick="Router.go('notifications')" class="mobile-nav-item" id="mob-notifications">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-      </a>
-      <a onclick="Router.go('profile')" class="mobile-nav-item" id="mob-profile">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </a>
-    </nav>
-  </div>
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      
+      <!-- FEED VIEW -->
+      <div id="view-feed" class="page-container view-section">
+        <header class="feed-header">
+          <h2 style="font-size: 1.25rem;">Home</h2>
+          <button class="btn-icon" title="Settings" onclick="Router.go('settings')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+          </button>
+        </header>
+        
+        <!-- Stories -->
+        <div class="stories-tray" id="stories-tray">
+          <!-- Injected JS -->
+        </div>
 
-  <!-- Modal Overlay -->
-  <div id="modal-overlay" class="modal-overlay">
-    <div class="modal-content" id="modal-content"></div>
+        <!-- Inline Composer -->
+        <div class="composer slide-up" style="animation-delay: 0.1s;">
+          <div id="composer-avatar"></div>
+          <textarea id="quick-composer" class="composer-input" placeholder="What's happening?" rows="1"></textarea>
+          <div style="display: flex; gap: 0.5rem;">
+             <label class="btn-icon" style="color: var(--accent);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <input type="file" id="quick-file" accept="image/*" hidden multiple>
+             </label>
+             <button id="quick-post-btn" class="btn btn-primary btn-sm" disabled style="padding: 0.4rem 1rem;">Post</button>
+          </div>
+        </div>
+        <div id="composer-previews" style="display:flex; gap:0.5rem; padding: 0 1rem 1rem 4rem;"></div>
+
+        <!-- Feed Stream -->
+        <div id="feed-stream" style="padding-bottom: 2rem;">
+          <!-- Posts -->
+        </div>
+        
+        <div id="feed-loader" class="flex-center hidden" style="padding: 2rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+        </div>
+      </div>
+
+      <!-- EXPLORE VIEW -->
+      <div id="view-explore" class="page-container view-section hidden">
+         <header class="feed-header">
+            <h2>Explore</h2>
+            <div style="position:relative; width: 200px;">
+               <input type="text" id="search-input" placeholder="Search..." class="input-field" style="padding-left: 2.2rem; border-radius: var(--radius-full); background: var(--bg-deep);">
+               <svg width="16" height="16" style="position:absolute; left: 0.8rem; top: 0.85rem; color: var(--text-mute);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+         </header>
+         <div style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;" id="explore-grid">
+            <!-- Grid -->
+         </div>
+      </div>
+
+      <!-- MESSAGES VIEW -->
+      <div id="view-messages" class="page-container view-section hidden" style="max-width: 100%;">
+         <div class="chat-layout">
+            <div class="conv-list" id="conv-list"></div>
+            <div class="chat-area">
+               <div id="chat-placeholder" class="flex-center" style="height: 100%; color: var(--text-mute); flex-direction: column; gap: 1rem;">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+                  <p>Select a conversation</p>
+               </div>
+               <div id="active-chat" class="hidden" style="display: flex; flex-direction: column; height: 100%;">
+                  <header class="feed-header" style="padding: 0.75rem 1.5rem;">
+                     <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <button class="btn-icon" onclick="Messages.closeChat()" style="margin-right: 0.5rem; width: 32px; height: 32px;">&larr;</button>
+                        <div id="chat-header-user"></div>
+                     </div>
+                  </header>
+                  <div class="chat-messages" id="chat-bubbles"></div>
+                  <div style="padding: 1rem; border-top: 1px solid var(--border); background: var(--bg-surface); display: flex; gap: 0.75rem;">
+                     <input type="text" id="chat-input" class="input-field" style="border-radius: var(--radius-full);" placeholder="Type a message...">
+                     <button class="btn btn-primary" style="width: 44px; height: 44px; border-radius: 50%; padding: 0;" onclick="Messages.send()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- PROFILE VIEW -->
+      <div id="view-profile" class="page-container view-section hidden">
+         <div class="profile-header" style="height: 200px; background: var(--accent-gradient); position: relative;">
+            <div style="position: absolute; bottom: -50px; left: 1.5rem; display: flex; align-items: flex-end; justify-content: space-between; width: calc(100% - 3rem);">
+               <div style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--bg-deep); overflow: hidden; background: var(--bg-surface);" id="profile-banner-img"></div>
+               <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
+                  <button class="btn btn-outline" id="profile-action-btn">Edit Profile</button>
+               </div>
+            </div>
+         </div>
+         <div style="padding: 4rem 1.5rem 1.5rem;">
+            <h1 id="p-name" style="font-size: 1.5rem; margin-bottom: 0.25rem;">Name</h1>
+            <div id="p-handle" style="color: var(--text-sec); font-size: 0.95rem; margin-bottom: 1rem;">@handle</div>
+            <p id="p-bio" style="margin-bottom: 1rem;">Bio text</p>
+            <div style="display: flex; gap: 2rem; font-size: 0.9rem; margin-bottom: 2rem; color: var(--text-sec);">
+               <span><strong style="color: var(--text-main);">0</strong> Followers</span>
+               <span><strong style="color: var(--text-main);">0</strong> Following</span>
+            </div>
+            
+            <div style="border-bottom: 1px solid var(--border); display: flex; gap: 2rem; margin-bottom: 1rem;">
+               <button class="btn" style="color: var(--accent); border-bottom: 2px solid var(--accent); border-radius: 0;">Posts</button>
+               <button class="btn" style="color: var(--text-sec);">Media</button>
+            </div>
+            
+            <div id="profile-posts"></div>
+         </div>
+      </div>
+      
+      <!-- NOTIFICATIONS VIEW -->
+      <div id="view-notifications" class="page-container view-section hidden">
+         <header class="feed-header"><h2>Notifications</h2></header>
+         <div id="notif-list"></div>
+      </div>
+      
+      <!-- SETTINGS VIEW -->
+      <div id="view-settings" class="page-container view-section hidden">
+         <header class="feed-header"><h2>Settings</h2></header>
+         <div style="padding: 1.5rem;">
+            <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 1rem;">
+               <h3 style="margin-bottom: 1rem;">Appearance</h3>
+               <div class="flex-center" style="justify-content: space-between;">
+                  <span>Dark Mode</span>
+                  <button class="btn-icon" onclick="App.toggleTheme()">Switch</button>
+               </div>
+            </div>
+            <button class="btn btn-danger" style="width: 100%; background: rgba(239, 68, 68, 0.1); color: var(--error);" onclick="Auth.logout()">Log Out</button>
+         </div>
+      </div>
+
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel" id="right-panel">
+       <div style="margin-bottom: 2rem;">
+          <h3 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-mute); letter-spacing: 1px; margin-bottom: 1rem;">Trending</h3>
+          <div id="trending-list"></div>
+       </div>
+       
+       <div>
+          <h3 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-mute); letter-spacing: 1px; margin-bottom: 1rem;">Who to follow</h3>
+          <div id="suggested-list"></div>
+       </div>
+    </aside>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+       <button class="btn-icon" onclick="Router.go('feed')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg></button>
+       <button class="btn-icon" onclick="Router.go('explore')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></button>
+       <button class="btn-icon" style="background: var(--accent); color: white; transform: translateY(-10px); box-shadow: 0 4px 10px rgba(139,92,246,0.4);" onclick="UI.openComposer()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+       <button class="btn-icon" onclick="Router.go('messages')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg></button>
+       <button class="btn-icon" onclick="Router.go('profile')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
+    </nav>
+
   </div>
 
   <script>
-    /* =========================================
-       SEED DATA
-       ========================================= */
-    const SEED_DATA = {
-      users: [
-        { id: "uid_001", username: "alex_volkov", email: "alex@pulse.app", password: "5f4dcc3b5aa765d61d8327deb882cf99", displayName: "Alex Volkov", bio: "Full-stack dev. Building things that matter. ✦", avatar: null, avatarColor: "#6366f1", followers: ["uid_002", "uid_003"], following: ["uid_002"], bookmarks: [], theme: "light", verified: true, createdAt: "2024-01-10T08:00:00Z" },
-        { id: "uid_002", username: "maya_chen", email: "maya@pulse.app", password: "5f4dcc3b5aa765d61d8327deb882cf99", displayName: "Maya Chen", bio: "Photographer & visual artist. Light is my medium. 📸", avatar: null, avatarColor: "#ec4899", followers: ["uid_001"], following: ["uid_001"], bookmarks: [], theme: "light", verified: true, createdAt: "2024-01-12T09:30:00Z" },
-        { id: "uid_003", username: "ryan_okafor", email: "ryan@pulse.app", password: "5f4dcc3b5aa765d61d8327deb882cf99", displayName: "Ryan Okafor", bio: "Movement coach. Helping people find their edge 💪", avatar: null, avatarColor: "#f59e0b", followers: ["uid_001"], following: ["uid_001"], bookmarks: [], theme: "light", verified: false, createdAt: "2024-01-18T11:00:00Z" }
-      ],
-      posts: [
-        { id: "pid_001", authorId: "uid_001", content: "Just shipped a new feature for our design system — zero-dependency, pure CSS container queries. The web platform has genuinely leveled up. No more hacks. 🚀\n\n#webdev #css #frontend", images: [], likes: ["uid_002", "uid_003"], comments: [], hashtags: ["webdev", "css", "frontend"], shares: 12, createdAt: new Date().toISOString() },
-        { id: "pid_002", authorId: "uid_002", content: "Golden hour at the Brooklyn Bridge. Shot this on film — the grain adds something digital just can't replicate. Some moments deserve patience. 📷\n\n#photography #film #nyc", images: [], likes: ["uid_001"], comments: [], hashtags: ["photography", "film", "nyc"], shares: 28, createdAt: new Date(Date.now() - 3600000).toISOString() },
-        { id: "pid_003", authorId: "uid_003", content: "Week 12 of training complete. The discipline you build in the gym translates to every area of life. Consistency > intensity. Every. Single. Time. 💪\n\n#fitness #mindset", images: [], likes: [], comments: [], hashtags: ["fitness", "mindset"], shares: 5, createdAt: new Date(Date.now() - 7200000).toISOString() }
-      ],
-      conversations: [],
-      notifications: []
-    };
-
-    /* =========================================
-       UTILS
-       ========================================= */
+    /* ============================================================
+       GODMODE ENGINE
+       ============================================================ */
+    
+    // --- 1. CORE UTILS ---
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+    
     const Utils = {
-      generateId: (p) => `${p}_${Date.now().toString(36)}_${Math.random().toString(36).substr(2, 5)}`,
-      hashPassword: (p) => { /* Simple hash for demo */ let h=5381; for(let i=0;i<p.length;i++) h=(h<<5)+h+p.charCodeAt(i); return h>>>0; },
-      timeAgo: (d) => {
-        const s = Math.floor((new Date() - new Date(d)) / 1000);
-        if(s < 60) return 'just now';
-        if(s < 3600) return Math.floor(s/60) + 'm';
-        if(s < 86400) return Math.floor(s/3600) + 'h';
-        return Math.floor(s/86400) + 'd';
+      id: () => Math.random().toString(36).substr(2, 9),
+      time: (d) => {
+        const date = new Date(d), now = new Date(), diff = (now - date) / 1000;
+        if (diff < 60) return 'now';
+        if (diff < 3600) return `${Math.floor(diff / 60)}m`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
+        return date.toLocaleDateString();
       },
-      sanitize: (str) => {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML.replace(/#([\w]+)/g, '<a href="#" onclick="Router.go(\'explore\', \'tag\', \'$1\')" class="hashtag">#$1</a>')
-                          .replace(/@([\w]+)/g, '<a href="#" onclick="Router.go(\'profile\', \'u\', \'$1\')" class="mention">@$1</a>')
-                          .replace(/\n/g, '<br>');
+      formatNum: n => n > 999 ? (n/1000).toFixed(1) + 'k' : n,
+      hash: str => {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        return Math.abs(hash).toString(16);
       },
-      getInitials: (n) => n.split(' ').map(w=>w[0]).join('').substr(0,2).toUpperCase(),
-      avatarHTML: (u, s=40) => {
-        if(u.avatar) return `<img src="${u.avatar}" class="avatar" style="width:${s}px;height:${s}px;">`;
-        return `<div class="avatar-placeholder" style="width:${s}px;height:${s}px;background:${u.avatarColor};font-size:${s*0.4}px;">${Utils.getInitials(u.displayName)}</div>`;
+      avatar: (name, color) => {
+        const initials = name.split(' ').map(n => n[0]).join('').substr(0,2).toUpperCase();
+        return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${color};color:white;font-weight:700;font-size:0.9rem;">${initials}</div>`;
       },
-      showToast: (m, t='info') => {
-        const c = document.getElementById('toast-container');
+      toast: (msg, type='info') => {
         const el = document.createElement('div');
-        el.className = `toast ${t}`;
-        el.innerHTML = `<span>${t==='success'?'✓':t==='error'?'✕':'ℹ'}</span> ${m}`;
-        c.appendChild(el);
-        setTimeout(() => { el.style.opacity='0'; el.style.transform='translateY(20px)'; setTimeout(()=>el.remove(),300); }, 3000);
-      },
-      modal: (html) => {
-        const ov = document.getElementById('modal-overlay');
-        const ct = document.getElementById('modal-content');
-        ct.innerHTML = html;
-        ov.classList.add('active');
-        ov.onclick = (e) => { if(e.target===ov) Utils.closeModal(); };
-      },
-      closeModal: () => { document.getElementById('modal-overlay').classList.remove('active'); }
+        el.className = 'toast';
+        el.innerHTML = `<span>${type === 'success' ? '✓' : 'ℹ'}</span> ${msg}`;
+        $('#toast-container').appendChild(el);
+        setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateY(10px)'; setTimeout(() => el.remove(), 300); }, 3000);
+      }
     };
 
-    /* =========================================
-       DATABASE (LocalStorage)
-       ========================================= */
+    // --- 2. DATABASE (LocalStorage + Seed) ---
     const DB = {
       init: () => {
-        if(!localStorage.getItem('pulse_init')) {
-          localStorage.setItem('pulse_users', JSON.stringify(SEED_DATA.users));
-          localStorage.setItem('pulse_posts', JSON.stringify(SEED_DATA.posts));
-          localStorage.setItem('pulse_convos', JSON.stringify(SEED_DATA.conversations));
-          localStorage.setItem('pulse_notifs', JSON.stringify(SEED_DATA.notifications));
-          localStorage.setItem('pulse_init', 'true');
+        if(!localStorage.getItem('p_users')) {
+          const seedUsers = [
+            { id: 'u1', name: 'Alex Volkov', handle: 'alex', email: 'alex@pulse.app', pass: '5f4dcc3b5aa765d61d8327deb882cf99', bio: 'Building the future of UI/UX. 🚀', color: '#8b5cf6', following: ['u2'], followers: [] },
+            { id: 'u2', name: 'Sarah Chen', handle: 'sarah', email: 'sarah@pulse.app', pass: '5f4dcc3b5aa765d61d8327deb882cf99', bio: 'Digital artist & photographer.', color: '#ec4899', following: [], followers: ['u1'] },
+            { id: 'u3', name: 'Dev House', handle: 'devhouse', email: 'dev@pulse.app', pass: '5f4dcc3b5aa765d61d8327deb882cf99', bio: 'Tech news and updates.', color: '#3b82f6', following: [], followers: [] }
+          ];
+          const seedPosts = [
+            { id: 'p1', uid: 'u1', text: 'Just launched the new PULSE interface. The glassmorphism effect is subtle but powerful! #design #ui', img: 'https://picsum.photos/seed/pulse1/600/350', likes: ['u2'], date: new Date().toISOString() },
+            { id: 'p2', uid: 'u2', text: 'Golden hour in Tokyo. 🌅', img: 'https://picsum.photos/seed/tokyo/600/400', likes: ['u1'], date: new Date(Date.now() - 3600000).toISOString() },
+            { id: 'p3', uid: 'u3', text: 'WebAssembly is changing the game for browser performance.', img: null, likes: [], date: new Date(Date.now() - 7200000).toISOString() }
+          ];
+          localStorage.setItem('p_users', JSON.stringify(seedUsers));
+          localStorage.setItem('p_posts', JSON.stringify(seedPosts));
+          localStorage.setItem('p_convos', JSON.stringify([]));
         }
       },
-      get: (k) => JSON.parse(localStorage.getItem(k) || '[]'),
-      set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
-      users: {
-        getAll: () => DB.get('pulse_users'),
-        getById: (id) => DB.get('pulse_users').find(u => u.id === id),
-        getByEmail: (e) => DB.get('pulse_users').find(u => u.email === e),
-        create: (data) => {
-          const us = DB.get('pulse_users');
-          const nu = { id: Utils.generateId('u'), followers:[], following:[], bookmarks:[], theme:'light', verified:false, createdAt:new Date().toISOString(), ...data };
-          us.push(nu);
-          DB.set('pulse_users', us);
-          return nu;
-        },
-        update: (id, d) => {
-          const us = DB.get('pulse_users');
-          const idx = us.findIndex(u => u.id === id);
-          if(idx>-1) { us[idx] = { ...us[idx], ...d }; DB.set('pulse_users', us); return us[idx]; }
-        },
-        follow: (fid, tid) => {
-          const us = DB.get('pulse_users');
-          const f = us.find(u=>u.id===fid), t = us.find(u=>u.id===tid);
-          if(f && t && !f.following.includes(tid)) {
-            f.following.push(tid); t.followers.push(fid);
-            DB.set('pulse_users', us);
-            // Notify
-            const ns = DB.get('pulse_notifs');
-            ns.unshift({ id: Utils.generateId('n'), userId: tid, fromUserId: fid, type: 'follow', read: false, createdAt: new Date().toISOString() });
-            DB.set('pulse_notifs', ns);
-            App.updateBadges();
-          }
-        },
-        isFollowing: (fid, tid) => DB.users.getById(fid).following.includes(tid)
-      },
-      posts: {
-        getAll: () => DB.get('pulse_posts'),
-        create: (aid, data) => {
-          const ps = DB.get('pulse_posts');
-          const tags = (data.content.match(/#[\w]+/g) || []).map(t=>t.substr(1));
-          const p = { id: Utils.generateId('p'), authorId: aid, likes:[], comments:[], shares:0, hashtags:tags, createdAt: new Date().toISOString(), ...data };
-          ps.unshift(p);
-          DB.set('pulse_posts', ps);
-          return p;
-        },
-        like: (pid, uid) => {
-          const ps = DB.get('pulse_posts');
-          const p = ps.find(x=>x.id===pid);
-          if(p) {
-            if(p.likes.includes(uid)) p.likes = p.likes.filter(x=>x!==uid);
-            else p.likes.push(uid);
-            DB.set('pulse_posts', ps);
-            
-            // Notify if liking other's post
-            if(p.likes.includes(uid) && p.authorId !== uid) {
-               const ns = DB.get('pulse_notifs');
-               ns.unshift({ id: Utils.generateId('n'), userId: p.authorId, fromUserId: uid, type:'like', postId: pid, read:false, createdAt: new Date().toISOString() });
-               DB.set('pulse_notifs', ns);
-               App.updateBadges();
-            }
-            return p;
-          }
-        },
-        comment: (pid, uid, txt) => {
-           const ps = DB.get('pulse_posts');
-           const p = ps.find(x=>x.id===pid);
-           if(p) {
-             p.comments.push({ id: Utils.generateId('c'), authorId: uid, content: txt, createdAt: new Date().toISOString() });
-             DB.set('pulse_posts', ps);
-             return p;
-           }
-        }
-      },
-      session: {
-        get: () => JSON.parse(localStorage.getItem('pulse_session')),
-        set: (u) => localStorage.setItem('pulse_session', JSON.stringify(u)),
-        clear: () => localStorage.removeItem('pulse_session')
+      get: (key) => JSON.parse(localStorage.getItem(key) || '[]'),
+      set: (key, val) => localStorage.setItem(key, JSON.stringify(val)),
+      user: {
+        get: () => JSON.parse(localStorage.getItem('p_session')),
+        login: (u) => localStorage.setItem('p_session', JSON.stringify(u)),
+        logout: () => localStorage.removeItem('p_session')
       }
     };
 
-    /* =========================================
-       AUTH
-       ========================================= */
-    const Auth = {
-      guard: () => {
-        const s = DB.session.get();
-        if(!s) { Router.go('auth'); return null; }
-        return DB.users.getById(s.userId);
-      },
-      login: (e, p) => {
-        const u = DB.users.getByEmail(e) || DB.users.getAll().find(u=>u.username === e);
-        if(!u || (u.password !== Utils.hashPassword(p) && u.password !== p)) return { ok: false, error: 'Invalid credentials' };
-        DB.session.set({ userId: u.id });
-        return { ok: true, user: u };
-      },
-      register: (d) => {
-        if(DB.users.getByEmail(d.email)) return { ok: false, error: 'Email taken' };
-        const u = DB.users.create(d);
-        DB.session.set({ userId: u.id });
-        return { ok: true, user: u };
-      },
-      logout: () => {
-        DB.session.clear();
-        window.location.reload();
-      }
-    };
-
-    /* =========================================
-       ROUTER & APP CONTROLLER
-       ========================================= */
-    const Router = {
-      current: 'auth',
-      go: (view, key, val) => {
-        // Hide all main sections
-        document.getElementById('view-auth').classList.add('hidden');
-        document.getElementById('view-app').classList.add('hidden');
-        
-        // Clear nav active states
-        document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(el => el.classList.remove('active'));
-        const navId = `nav-${view}`;
-        const mobId = `mob-${view}`;
-        if(document.getElementById(navId)) document.getElementById(navId).classList.add('active');
-        if(document.getElementById(mobId)) document.getElementById(mobId).classList.add('active');
-
-        if (view === 'auth') {
-          document.getElementById('view-auth').classList.remove('hidden');
+    // --- 3. UI CONTROLLER ---
+    const UI = {
+      currentUser: null,
+      
+      init: () => {
+        const u = DB.user.get();
+        if(u) {
+          UI.currentUser = u;
+          $('#app-shell').classList.remove('hidden');
+          $('#view-auth').classList.remove('active');
+          Router.go('feed');
+          UI.renderUserMini();
         } else {
-          const user = Auth.guard();
-          if (!user) return; // Guard redirects to auth
-          
-          document.getElementById('view-app').classList.remove('hidden');
-          App.renderSidebarUser(user);
-          
-          const container = document.getElementById('main-container');
-          container.innerHTML = ''; // Clear
-
-          if (view === 'feed') FeedView.render(container, user);
-          else if (view === 'explore') ExploreView.render(container, user);
-          else if (view === 'notifications') NotificationsView.render(container, user);
-          else if (view === 'messages') MessagesView.render(container, user);
-          else if (view === 'profile') ProfileView.render(container, user, key && val ? val : user.username);
-          else if (view === 'settings') SettingsView.render(container, user);
+          $('#view-auth').classList.add('active');
+          $('#app-shell').classList.add('hidden');
         }
-        Router.current = view;
+      },
+
+      renderUserMini: () => {
+        if(!UI.currentUser) return;
+        $('#current-user-mini').innerHTML = `
+          <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;">${Utils.avatar(UI.currentUser.name, UI.currentUser.color)}</div>
+          <div style="font-size:0.9rem;font-weight:600;">${UI.currentUser.name}</div>
+        `;
+      },
+
+      createPostHTML: (p, isFeed = true) => {
+        const author = DB.get('p_users').find(u => u.id === p.uid);
+        const isLiked = p.likes.includes(UI.currentUser.id);
+        const mediaHTML = p.img ? `<div style="margin-top:0.75rem;border-radius:var(--radius-md);overflow:hidden;cursor:pointer;" onclick="UI.openLightbox('${p.img}')"><img src="${p.img}" style="width:100%;height:auto;display:block;"></div>` : '';
+        
+        return `
+        <article class="post-card fade-enter" style="animation-delay: 0.05s">
+          <div class="post-header">
+            <div class="post-meta" onclick="Router.go('profile', '${author.handle}')" style="cursor:pointer">
+              <div style="width:42px;height:42px;border-radius:50%;overflow:hidden;border:1px solid var(--border);">${Utils.avatar(author.name, author.color)}</div>
+              <div>
+                <div style="font-weight:700;font-size:0.95rem;color:var(--text-main);">${author.name}</div>
+                <div style="font-size:0.8rem;color:var(--text-sec);">@${author.handle} • ${Utils.time(p.date)}</div>
+              </div>
+            </div>
+            ${isFeed ? `<button class="btn-icon" style="width:28px;height:28px;">•••</button>` : ''}
+          </div>
+          <div style="margin-top: 0.5rem; font-size: 0.95rem; line-height: 1.5; color: var(--text-main); white-space: pre-wrap;">${p.text}</div>
+          ${mediaHTML}
+          <div class="post-actions">
+            <button class="action-btn ${isLiked ? 'liked' : ''}" onclick="Effects.toggleLike(this, '${p.id}')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="${isLiked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path></svg>
+              ${p.likes.length}
+            </button>
+            <button class="action-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path></svg>
+              Comment
+            </button>
+            <button class="action-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              Share
+            </button>
+          </div>
+        </article>`;
+      },
+
+      openLightbox: (src) => {
+        const lb = $('#lightbox');
+        $('#lightbox-img').src = src;
+        lb.classList.add('active');
+      },
+      closeLightbox: () => {
+        $('#lightbox').classList.remove('active');
+      },
+
+      openComposer: () => {
+        const html = `
+          <div style="padding: 1.5rem;">
+            <h3 style="margin-bottom:1rem;">New Post</h3>
+            <textarea id="modal-composer" class="input-field" rows="4" style="margin-bottom:1rem; resize:none;" placeholder="What's on your mind?"></textarea>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+               <label class="btn btn-ghost btn-sm"><input type="file" hidden> Add Image</label>
+               <button class="btn btn-primary" onclick="App.submitModalPost()">Post</button>
+            </div>
+          </div>
+        `;
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `<div class="modal-content">${html}</div>`;
+        modal.onclick = (e) => { if(e.target === modal) modal.remove(); };
+        $('#modal-root').appendChild(modal);
+      },
+      
+      updateBadges: () => {
+         // Placeholder logic for badges
+         const notifBadge = $('#badge-notif');
+         if(notifBadge) notifBadge.style.display = Math.random() > 0.5 ? 'block' : 'none';
+      }
+    };
+
+    // --- 4. EFFECTS ENGINE ---
+    const Effects = {
+      toggleLike: (btn, pid) => {
+        const posts = DB.get('p_posts');
+        const post = posts.find(p => p.id === pid);
+        const uid = UI.currentUser.id;
+        
+        if (post.likes.includes(uid)) {
+          post.likes = post.likes.filter(id => id !== uid);
+          btn.classList.remove('liked');
+          btn.querySelector('svg').setAttribute('fill', 'none');
+        } else {
+          post.likes.push(uid);
+          btn.classList.add('liked');
+          btn.querySelector('svg').setAttribute('fill', 'currentColor');
+          Effects.spawnParticles(btn);
+        }
+        
+        DB.set('p_posts', posts);
+        btn.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="${post.likes.includes(uid) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path></svg>
+          ${post.likes.length}
+        `;
+      },
+      spawnParticles: (element) => {
+        const rect = element.getBoundingClientRect();
+        for(let i=0; i<5; i++) {
+          const p = document.createElement('div');
+          p.className = 'particle';
+          p.innerHTML = '♥';
+          p.style.left = (rect.left + rect.width/2 + (Math.random()*20 - 10)) + 'px';
+          p.style.top = (rect.top) + 'px';
+          p.style.fontSize = (Math.random() * 10 + 10) + 'px';
+          document.body.appendChild(p);
+          setTimeout(() => p.remove(), 1000);
+        }
+      }
+    };
+
+    // --- 5. ROUTER & VIEWS ---
+    const Router = {
+      go: (viewId, param = null) => {
+        // Hide all views
+        $$('.view-section').forEach(el => {
+          el.classList.remove('active');
+          el.classList.add('hidden');
+        });
+        
+        // Show target
+        const target = $(`#view-${viewId}`);
+        target.classList.remove('hidden');
+        setTimeout(() => target.classList.add('active'), 10);
+        
+        // Update Sidebar
+        $$('.nav-item').forEach(el => el.classList.remove('active'));
+        const navItem = $(`#nav-${viewId}`);
+        if(navItem) navItem.classList.add('active');
+
+        // Logic
+        if (viewId === 'feed') App.renderFeed();
+        if (viewId === 'explore') App.renderExplore();
+        if (viewId === 'messages') Messages.renderList();
+        if (viewId === 'profile') App.renderProfile(param || UI.currentUser.handle);
+        if (viewId === 'notifications') App.renderNotifs();
+        
         window.scrollTo(0,0);
       }
     };
 
     const App = {
-      init: () => {
-        DB.init();
-        const u = DB.session.get() ? DB.users.getById(DB.session.get().userId) : null;
-        if(u) {
-          // Apply Theme
-          document.documentElement.setAttribute('data-theme', u.theme || 'light');
-          Router.go('feed');
-          App.renderRightPanel(u);
-          App.updateBadges();
-        } else {
-          Router.go('auth');
-        }
-      },
-      renderSidebarUser: (u) => {
-        document.getElementById('current-user-avatar').innerHTML = Utils.avatarHTML(u, 40);
-        document.getElementById('current-user-name').textContent = u.displayName;
-        document.getElementById('current-user-handle').textContent = '@' + u.username;
-      },
-      updateBadges: () => {
-        const u = DB.users.getById(DB.session.get().userId);
-        const notifs = DB.get('pulse_notifs').filter(n => n.userId === u.id && !n.read).length;
-        const msgs = DB.get('pulse_convos').filter(c => c.participants.includes(u.id)).length; // Simplified for demo
-        
-        const bN = document.getElementById('badge-notifications');
-        const bM = document.getElementById('badge-messages');
-        
-        if(bN) { bN.textContent = notifs; bN.style.display = notifs ? 'flex' : 'none'; }
-        // Simplified message badge logic for demo
-      },
-      renderRightPanel: (u) => {
-        const sugg = DB.users.getAll().filter(x => x.id !== u.id).slice(0,3);
-        const posts = DB.posts.getAll();
-        const counts = {};
-        posts.forEach(p => p.hashtags.forEach(h => counts[h] = (counts[h]||0)+1));
-        const trends = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,3);
-
-        document.getElementById('suggested-users').innerHTML = sugg.map(s => `
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            ${Utils.avatarHTML(s, 40)}
-            <div style="flex:1">
-              <div style="font-weight:600;font-size:0.9rem;">${s.displayName}</div>
-              <div style="font-size:0.8rem;color:var(--text-muted);">@${s.username}</div>
-            </div>
-            <button class="btn btn-sm btn-outline" onclick="App.follow('${s.id}')">Follow</button>
-          </div>
-        `).join('');
-
-        document.getElementById('trending-topics').innerHTML = trends.map(t => `
-          <div style="padding:8px 0; border-bottom:1px solid var(--border-light); cursor:pointer;" onclick="Router.go('explore', 'tag', '${t[0]}')">
-            <div style="font-weight:600;font-size:0.9rem;color:var(--text-main);">#${t[0]}</div>
-            <div style="font-size:0.8rem;color:var(--text-muted);">${t[1]} posts</div>
-          </div>
-        `).join('');
-      },
-      follow: (tid) => {
-        const uid = DB.session.get().userId;
-        DB.users.follow(uid, tid);
-        Utils.showToast('Followed!', 'success');
-        App.renderRightPanel(DB.users.getById(uid)); // Refresh
-      },
-      toggleTheme: () => {
-        const u = DB.users.getById(DB.session.get().userId);
-        const newT = u.theme === 'light' ? 'dark' : 'light';
-        DB.users.update(u.id, { theme: newT });
-        document.documentElement.setAttribute('data-theme', newT);
-        Utils.showToast(`Switched to ${newT} mode`);
-      },
-      openPostComposer: () => {
-        const u = DB.users.getById(DB.session.get().userId);
-        Utils.modal(`
-          <h3 style="margin-bottom:16px;">Create Post</h3>
-          <div style="display:flex;gap:12px;">
-            ${Utils.avatarHTML(u, 48)}
-            <textarea id="composer-txt" class="form-textarea" style="flex:1;height:120px;" placeholder="What's on your mind?"></textarea>
-          </div>
-          <div style="margin-top:16px;text-align:right;">
-            <button class="btn btn-primary" onclick="App.submitPost()">Post</button>
-          </div>
-        `);
-        setTimeout(()=>document.getElementById('composer-txt').focus(), 100);
-      },
-      submitPost: () => {
-        const txt = document.getElementById('composer-txt').value;
-        if(!txt.trim()) return;
-        const u = DB.users.getById(DB.session.get().userId);
-        DB.posts.create(u.id, { content: txt });
-        Utils.closeModal();
-        Utils.showToast('Posted!', 'success');
-        if(Router.current === 'feed') FeedView.render(document.getElementById('main-container'), u);
-        if(Router.current === 'profile') ProfileView.render(document.getElementById('main-container'), u, u.username);
-      }
-    };
-
-    /* =========================================
-       VIEW: FEED
-       ========================================= */
-    const FeedView = {
-      render: (c, u) => {
-        const posts = DB.posts.getAll();
+      renderFeed: () => {
+        const posts = DB.get('p_posts');
+        const users = DB.get('p_users');
+        const stream = $('#feed-stream');
+        stream.innerHTML = posts.map(p => UI.createPostHTML(p)).join('');
         
         // Stories
-        const storiesHTML = `
-          <div class="stories-bar">
-            <div class="story-item">
-              <div class="story-ring"><div class="story-avatar-wrap">${Utils.avatarHTML(u, 56)}</div></div>
-              <span class="story-label">Your Story</span>
+        const stories = $('#stories-tray');
+        stories.innerHTML = `
+          <div class="story-item flex-center" style="flex-direction:column; gap:4px; min-width:64px;">
+             <div class="story-ring" style="background:var(--border); padding:2px;"><div style="width:56px;height:56px;border-radius:50%;background:var(--bg-deep);display:flex;align-items:center;justify-content:center;color:var(--accent);">+</div></div>
+             <span style="font-size:0.75rem;color:var(--text-sec);">Add</span>
+          </div>
+          ${users.map(u => `
+            <div class="story-item flex-center" style="flex-direction:column; gap:4px; min-width:64px;">
+               <div class="story-ring ${Math.random()>0.5?'has-story':''}" style="padding:2px;"><div style="width:56px;height:56px;border-radius:50%;overflow:hidden;">${Utils.avatar(u.name, u.color)}</div></div>
+               <span style="font-size:0.75rem;color:var(--text-sec);">${u.name.split(' ')[0]}</span>
             </div>
-            ${u.following.map(fid => {
-              const fu = DB.users.getById(fid);
-              return `
-                <div class="story-item">
-                  <div class="story-ring"><div class="story-avatar-wrap">${Utils.avatarHTML(fu, 56)}</div></div>
-                  <span class="story-label">${fu.displayName.split(' ')[0]}</span>
-                </div>`;
-            }).join('')}
-          </div>
+          `).join('')}
         `;
-
-        // Composer
-        const composerHTML = `
-          <div class="post-composer-inline">
-            ${Utils.avatarHTML(u, 40)}
-            <div class="composer-input-wrap">
-              <textarea class="composer-textarea" placeholder="What's happening?" onclick="App.openPostComposer()" readonly></textarea>
-            </div>
-          </div>
-        `;
-
-        // Posts
-        const postsHTML = posts.map(p => {
-          const author = DB.users.getById(p.authorId);
-          const liked = p.likes.includes(u.id);
-          return `
-            <article class="post-card fade-in">
-              <div class="post-header">
-                <div class="post-author">
-                  ${Utils.avatarHTML(author, 44)}
-                  <div class="author-meta">
-                    <span class="author-name">${author.displayName} ${author.verified?'✓':''}</span>
-                    <span class="post-handle">@${author.username} · ${Utils.timeAgo(p.createdAt)}</span>
-                  </div>
-                </div>
-                <button class="btn-icon">•••</button>
-              </div>
-              <div class="post-content">${Utils.sanitize(p.content)}</div>
-              <div class="post-actions">
-                <button class="action-btn ${liked?'liked':''}" onclick="FeedView.like('${p.id}')">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="${liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                  ${p.likes.length}
-                </button>
-                <button class="action-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                  ${p.comments.length}
-                </button>
-                <button class="action-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-                </button>
-              </div>
-            </article>
-          `;
-        }).join('');
-
-        c.innerHTML = `
-          <div class="content-header"><h2>Home</h2></div>
-          ${storiesHTML}
-          ${composerHTML}
-          <div>${postsHTML}</div>
-        `;
-      },
-      like: (pid) => {
-        const uid = DB.session.get().userId;
-        DB.posts.like(pid, uid);
-        FeedView.render(document.getElementById('main-container'), DB.users.getById(uid));
-      }
-    };
-
-    /* =========================================
-       VIEW: EXPLORE
-       ========================================= */
-    const ExploreView = {
-      render: (c, u) => {
-        const posts = DB.posts.getAll();
-        c.innerHTML = `
-          <div class="content-header">
-             <input type="text" class="form-input" placeholder="Search PULSE" style="border-radius:99px; background:var(--bg-hover); border:none;">
-          </div>
-          <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:4px; padding-top:16px;">
-            ${posts.map(p => `
-              <div style="aspect-ratio:1; background:var(--bg-hover); padding:16px; cursor:pointer;" onclick="alert('Open post ${p.id}')">
-                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">@${DB.users.getById(p.authorId).username}</div>
-                <div style="font-size:0.9rem; overflow:hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">${p.content}</div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      }
-    };
-
-    /* =========================================
-       VIEW: NOTIFICATIONS
-       ========================================= */
-    const NotificationsView = {
-      render: (c, u) => {
-        const notifs = DB.get('pulse_notifs').filter(n => n.userId === u.id);
-        c.innerHTML = `
-          <div class="content-header"><h2>Notifications</h2></div>
-          <div>
-            ${notifs.length ? notifs.map(n => {
-              const from = DB.users.getById(n.fromUserId);
-              let txt = '';
-              if(n.type === 'follow') txt = 'followed you.';
-              if(n.type === 'like') txt = 'liked your post.';
-              return `
-                <div style="display:flex;gap:12px; padding:16px; border-bottom:1px solid var(--border-light); align-items:center;">
-                  ${Utils.avatarHTML(from, 48)}
-                  <div>
-                    <div><strong>${from.displayName}</strong> ${txt}</div>
-                    <div style="font-size:0.8rem; color:var(--text-muted);">${Utils.timeAgo(n.createdAt)}</div>
-                  </div>
-                </div>
-              `;
-            }).join('') : '<div style="padding:20px; text-align:center; color:var(--text-muted);">No notifications yet</div>'}
-          </div>
-        `;
-        // Mark all read
-        const all = DB.get('pulse_notifs');
-        all.forEach(n => { if(n.userId === u.id) n.read = true; });
-        DB.set('pulse_notifs', all);
-        App.updateBadges();
-      }
-    };
-
-    /* =========================================
-       VIEW: MESSAGES
-       ========================================= */
-    const MessagesView = {
-      render: (c, u) => {
-        const convos = DB.get('pulse_convos').filter(x => x.participants.includes(u.id));
-        // Mock a list of users to chat with if no convos
-        const users = DB.users.getAll().filter(x => x.id !== u.id);
         
-        c.innerHTML = `
-           <div class="messages-layout">
-             <div class="conv-list">
-               <div style="padding:16px; border-bottom:1px solid var(--border-light); font-weight:700;">Messages</div>
-               ${users.map(user => `
-                 <div class="conv-item" onclick="MessagesView.openChat('${user.id}')">
-                   ${Utils.avatarHTML(user, 48)}
-                   <div style="flex:1; overflow:hidden;">
-                     <div style="font-weight:600;">${user.displayName}</div>
-                     <div style="font-size:0.85rem; color:var(--text-muted);">@${user.username}</div>
-                   </div>
-                 </div>
-               `).join('')}
-             </div>
-             <div class="chat-area" id="active-chat">
-                <div style="height:100%; display:flex; align-items:center; justify-content:center; color:var(--text-muted);">
-                  Select a conversation
-                </div>
-             </div>
-           </div>
+        // Right Panel
+        $('#trending-list').innerHTML = `
+          <div style="padding:0.5rem 0;"><div style="font-size:0.8rem;color:var(--text-mute);">Technology · Trending</div><div style="font-weight:600;">#AI</div><div style="font-size:0.8rem;color:var(--text-sec);">54.2K posts</div></div>
+          <div style="padding:0.5rem 0;"><div style="font-size:0.8rem;color:var(--text-mute);">Design · Trending</div><div style="font-weight:600;">#Glassmorphism</div><div style="font-size:0.8rem;color:var(--text-sec);">12K posts</div></div>
         `;
+        $('#suggested-list').innerHTML = users.filter(u => u.id !== UI.currentUser.id).map(u => `
+          <div class="flex-center" style="justify-content:space-between; margin-bottom:1rem;">
+             <div class="flex-center" style="justify-content:flex-start; gap:0.75rem;">
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;">${Utils.avatar(u.name, u.color)}</div>
+                <div style="font-size:0.9rem; font-weight:600;">${u.name}</div>
+             </div>
+             <button class="btn btn-sm btn-primary" style="padding:0.4rem 0.8rem; font-size:0.8rem;">Follow</button>
+          </div>
+        `).join('');
       },
-      openChat: (tid) => {
-        const uid = DB.session.get().userId;
-        const target = DB.users.getById(tid);
-        // Find or create convo
-        let conv = DB.get('pulse_convos').find(c => c.participants.includes(uid) && c.participants.includes(tid));
-        if(!conv) {
-          conv = { id: Utils.generateId('c'), participants: [uid, tid], messages: [] };
-          const list = DB.get('pulse_convos');
-          list.push(conv);
-          DB.set('pulse_convos', list);
-        }
 
-        const chatEl = document.getElementById('active-chat');
-        chatEl.classList.add('open');
-        chatEl.innerHTML = `
-          <div class="chat-header">
-             <button class="btn-icon" onclick="document.getElementById('active-chat').classList.remove('open')">←</button>
-             ${Utils.avatarHTML(target, 36)} ${target.displayName}
-          </div>
-          <div class="chat-messages" id="chat-msgs">
-             ${conv.messages.map(m => `
-               <div class="message ${m.senderId===uid?'mine':'theirs'}">
-                 ${m.content}
-               </div>
-             `).join('')}
-          </div>
-          <div class="chat-input">
-             <input type="text" id="msg-input" class="form-input" placeholder="Type a message...">
-             <button class="btn btn-primary" onclick="MessagesView.send('${conv.id}')">Send</button>
-          </div>
-        `;
-        // Auto scroll
-        const box = document.getElementById('chat-msgs');
-        box.scrollTop = box.scrollHeight;
-      },
-      send: (cid) => {
-        const inp = document.getElementById('msg-input');
-        const txt = inp.value.trim();
+      submitModalPost: () => {
+        const txt = $('#modal-composer').value;
         if(!txt) return;
-        const uid = DB.session.get().userId;
-        const list = DB.get('pulse_convos');
-        const c = list.find(x => x.id === cid);
-        c.messages.push({ id: Utils.generateId('m'), senderId: uid, content: txt, createdAt: new Date().toISOString() });
-        DB.set('pulse_convos', list);
+        const posts = DB.get('p_posts');
+        posts.unshift({ id: Utils.id(), uid: UI.currentUser.id, text: txt, img: null, likes: [], date: new Date().toISOString() });
+        DB.set('p_posts', posts);
+        $('#modal-root').innerHTML = '';
+        Utils.toast('Posted successfully', 'success');
+        if(Router.current === 'feed') App.renderFeed();
+      },
+      
+      toggleTheme: () => {
+         const html = document.documentElement;
+         const current = html.getAttribute('data-theme');
+         html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      },
+      
+      renderExplore: () => {
+         const posts = DB.get('p_posts');
+         $('#explore-grid').innerHTML = posts.map(p => `
+            <div style="aspect-ratio:1; background:var(--bg-surface); border-radius:var(--radius-md); overflow:hidden; position: relative; cursor: pointer;" onclick="Router.go('feed')">
+               ${p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="padding:1rem; font-size:0.9rem;">${p.text}</div>`}
+            </div>
+         `).join('');
+      },
+
+      renderProfile: (handle) => {
+         const user = DB.get('p_users').find(u => u.handle === handle) || UI.currentUser;
+         const posts = DB.get('p_posts').filter(p => p.uid === user.id);
+         
+         $('#p-name').textContent = user.name;
+         $('#p-handle').textContent = '@' + user.handle;
+         $('#p-bio').textContent = user.bio;
+         $('#profile-banner-img').innerHTML = Utils.avatar(user.name, user.color);
+         
+         $('#profile-posts').innerHTML = posts.length ? posts.map(p => UI.createPostHTML(p, false)).join('') : '<div style="padding:2rem;text-align:center;color:var(--text-sec);">No posts yet.</div>';
+      },
+      
+      renderNotifs: () => {
+         $('#notif-list').innerHTML = `
+            <div style="padding:1rem; border-bottom:1px solid var(--border); display:flex; gap:1rem; align-items:center;">
+               <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;">${Utils.avatar('Sarah Chen', '#ec4899')}</div>
+               <div><strong>Sarah Chen</strong> liked your post. <br><span style="font-size:0.8rem;color:var(--text-mute);">2m ago</span></div>
+            </div>
+         `;
+      }
+    };
+
+    const Messages = {
+      renderList: () => {
+        const users = DB.get('p_users').filter(u => u.id !== UI.currentUser.id);
+        $('#conv-list').innerHTML = users.map(u => `
+          <div class="conv-item" onclick="Messages.openChat('${u.id}')">
+            <div style="width:48px;height:48px;border-radius:50%;overflow:hidden;">${Utils.avatar(u.name, u.color)}</div>
+            <div class="conv-info">
+               <div style="font-weight:600;">${u.name}</div>
+               <div style="font-size:0.85rem;color:var(--text-sec);">Click to start chatting</div>
+            </div>
+          </div>
+        `).join('');
+      },
+      openChat: (uid) => {
+        const user = DB.get('p_users').find(u => u.id === uid);
+        $('#chat-placeholder').classList.add('hidden');
+        $('#active-chat').classList.remove('hidden');
+        $('#active-chat').style.display = 'flex';
         
-        // Re-render chat (simple way)
-        // In real app, just append node
-        const box = document.getElementById('chat-msgs');
-        const div = document.createElement('div');
-        div.className = 'message mine fade-in';
-        div.textContent = txt;
-        box.appendChild(div);
-        box.scrollTop = box.scrollHeight;
-        inp.value = '';
-      }
-    };
-
-    /* =========================================
-       VIEW: PROFILE
-       ========================================= */
-    const ProfileView = {
-      render: (c, u, username) => {
-        const user = DB.users.getAll().find(x => x.username === username) || u;
-        const isMe = user.id === u.id;
-        const posts = DB.posts.getAll().filter(p => p.authorId === user.id);
+        $('#chat-header-user').innerHTML = `
+           <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;">${Utils.avatar(user.name, user.color)}</div>
+           <span style="font-weight:600;">${user.name}</span>
+        `;
         
-        c.innerHTML = `
-          <div class="profile-banner"></div>
-          <div class="profile-header">
-            <div class="profile-avatar-lg">${Utils.avatarHTML(user, 120)}</div>
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-top:12px;">
-              <div>
-                <h2 style="font-size:1.5rem; font-weight:800;">${user.displayName} ${user.verified?'✓':''}</h2>
-                <div style="color:var(--text-muted);">@${user.username}</div>
-              </div>
-              ${!isMe ? `<button class="btn btn-primary" onclick="App.follow('${user.id}')">${DB.users.isFollowing(u.id, user.id)?'Following':'Follow'}</button>` : `<button class="btn btn-outline" onclick="App.toggleTheme()">Toggle Theme</button>`}
-            </div>
-            <div style="margin-top:16px;">${user.bio || ''}</div>
-            <div class="profile-stats">
-              <div><span class="stat-num">${user.following.length}</span> <span class="stat-label">Following</span></div>
-              <div><span class="stat-num">${user.followers.length}</span> <span class="stat-label">Followers</span></div>
-            </div>
-          </div>
-          <div style="border-top:1px solid var(--border);">
-             <div style="padding:16px; font-weight:700; border-bottom:1px solid var(--border);">Posts</div>
-             ${posts.map(p => `
-                <div style="padding:16px; border-bottom:1px solid var(--border-light);">
-                   <div style="font-size:0.9rem; margin-bottom:8px;">${Utils.timeAgo(p.createdAt)}</div>
-                   <div>${Utils.sanitize(p.content)}</div>
-                   <div style="margin-top:8px; display:flex; gap:16px; color:var(--text-muted); font-size:0.9rem;">
-                     <span>${p.likes.length} Likes</span>
-                     <span>${p.comments.length} Comments</span>
-                   </div>
-                </div>
-             `).join('')}
-          </div>
+        $('#chat-bubbles').innerHTML = `
+           <div class="message theirs">Hey! Did you see the new update?</div>
+           <div class="message mine">Yeah, the new glassmorphism is slick 🔥</div>
         `;
+      },
+      closeChat: () => {
+        $('#chat-placeholder').classList.remove('hidden');
+        $('#active-chat').classList.add('hidden');
+        $('#active-chat').style.display = 'none';
+      },
+      send: () => {
+        const input = $('#chat-input');
+        const txt = input.value.trim();
+        if(!txt) return;
+        const bubble = document.createElement('div');
+        bubble.className = 'message mine';
+        bubble.textContent = txt;
+        $('#chat-bubbles').appendChild(bubble);
+        input.value = '';
+        $('#chat-bubbles').scrollTop = $('#chat-bubbles').scrollHeight;
       }
     };
 
-    /* =========================================
-       VIEW: SETTINGS
-       ========================================= */
-    const SettingsView = {
-      render: (c, u) => {
-        c.innerHTML = `
-          <div class="content-header"><h2>Settings</h2></div>
-          <div style="padding:16px;">
-            <div style="margin-bottom:24px;">
-              <h3 style="margin-bottom:12px;">Appearance</h3>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span>Dark Mode</span>
-                <button class="btn btn-outline" onclick="App.toggleTheme()">Toggle</button>
-              </div>
-            </div>
-            <div>
-              <h3 style="margin-bottom:12px;">Account</h3>
-              <button class="btn btn-danger" onclick="Auth.logout()">Log Out</button>
-            </div>
-          </div>
-        `;
-      }
-    };
-
-    /* =========================================
-       AUTH UI
-       ========================================= */
     const AuthUI = {
-      switchTab: (t) => {
-        document.getElementById('tab-login').classList.toggle('active', t==='login');
-        document.getElementById('tab-register').classList.toggle('active', t==='register');
-        document.getElementById('login-panel').classList.toggle('hidden', t!=='login');
-        document.getElementById('register-panel').classList.toggle('hidden', t!=='register');
+      mode: 'login',
+      switch: (m) => {
+        AuthUI.mode = m;
+        $('#tab-login').style.background = m === 'login' ? 'var(--bg-surface)' : 'transparent';
+        $('#tab-login').style.color = m === 'login' ? 'var(--text-main)' : 'var(--text-sec)';
+        $('#tab-register').style.background = m === 'register' ? 'var(--bg-surface)' : 'transparent';
+        $('#tab-register').style.color = m === 'register' ? 'var(--text-main)' : 'var(--text-sec)';
+        
+        if(m === 'login') {
+          $('#login-fields').classList.remove('hidden');
+          $('#register-fields').classList.add('hidden');
+        } else {
+          $('#login-fields').classList.add('hidden');
+          $('#register-fields').classList.remove('hidden');
+        }
       },
-      handleLogin: () => {
-        const e = document.getElementById('login-email').value;
-        const p = document.getElementById('login-password').value;
-        const err = document.getElementById('login-error');
-        const res = Auth.login(e, p);
-        if(res.ok) Router.go('feed');
-        else { err.textContent = res.error; err.classList.remove('hidden'); }
-      },
-      handleRegister: () => {
-        const n = document.getElementById('reg-name').value;
-        const u = document.getElementById('reg-username').value;
-        const em = document.getElementById('reg-email').value;
-        const p = document.getElementById('reg-password').value;
-        const err = document.getElementById('reg-error');
-        if(!n || !u || !em || !p) return err.classList.remove('hidden');
-        const res = Auth.register({ displayName:n, username:u, email:em, password:p });
-        if(res.ok) Router.go('feed');
-        else { err.textContent = res.error; err.classList.remove('hidden'); }
+      submit: (e) => {
+        e.preventDefault();
+        const email = $('#auth-email').value;
+        const pass = $('#auth-pass').value; // In real app, hash this
+        
+        if (AuthUI.mode === 'login') {
+          const users = DB.get('p_users');
+          const user = users.find(u => u.email === email && u.pass === Utils.hash(pass));
+          if(user) {
+            DB.user.login(user);
+            UI.init();
+          } else {
+            Utils.toast('Invalid credentials', 'error');
+          }
+        } else {
+          const name = $('#reg-name').value;
+          const handle = $('#reg-user').value.replace('@','');
+          const users = DB.get('p_users');
+          if(users.find(u => u.handle === handle)) return Utils.toast('Username taken', 'error');
+          
+          const newUser = { id: Utils.id(), name, handle, email, pass: Utils.hash(pass), bio: '', color: '#'+Math.floor(Math.random()*16777215).toString(16), following: [], followers: [] };
+          users.push(newUser);
+          DB.set('p_users', users);
+          DB.user.login(newUser);
+          UI.init();
+        }
       }
     };
+    
+    const Auth = {
+       logout: () => {
+          DB.user.logout();
+          location.reload();
+       }
+    };
 
-    // Initialize App
-    App.init();
+    // --- BOOTSTRAP ---
+    window.onload = () => {
+      DB.init();
+      UI.init();
+      
+      // Quick Composer Logic
+      const qc = $('#quick-composer');
+      const qb = $('#quick-post-btn');
+      qc.addEventListener('input', () => {
+         qc.style.height = 'auto';
+         qc.style.height = qc.scrollHeight + 'px';
+         qb.disabled = qc.value.trim() === '';
+      });
+      
+      qb.onclick = () => {
+         if(!qc.value.trim()) return;
+         const posts = DB.get('p_posts');
+         posts.unshift({ id: Utils.id(), uid: UI.currentUser.id, text: qc.value, img: null, likes: [], date: new Date().toISOString() });
+         DB.set('p_posts', posts);
+         qc.value = '';
+         qc.style.height = 'auto';
+         qb.disabled = true;
+         App.renderFeed();
+         Utils.toast('Posted!', 'success');
+      };
+    };
 
   </script>
 </body>
