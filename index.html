@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PULSE — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <span class="auth-logo-mark">◈</span> PULSE
+      </div>
+      <p class="auth-tagline">Where ideas spark and stories live</p>
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-panel">
+        <div class="auth-form">
+          <div class="form-group">
+            <label for="login-email">Email or Username</label>
+            <input type="text" id="login-email" placeholder="you@example.com" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <div id="login-error" style="display:none"></div>
+          <button class="auth-submit" id="login-btn" onclick="handleLogin()">Sign In</button>
+          <div class="auth-divider">or try a demo account</div>
+          <div class="auth-demo-hint">
+            Use <strong>alex@pulse.app</strong> or any demo email with password <strong>password123</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-panel" style="display:none">
+        <div class="auth-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="reg-name">Full Name</label>
+              <input type="text" id="reg-name" placeholder="Alex Volkov">
+            </div>
+            <div class="form-group">
+              <label for="reg-username">Username</label>
+              <div class="input-with-prefix">
+                <span class="input-prefix">@</span>
+                <input type="text" id="reg-username" placeholder="username">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email</label>
+            <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Password</label>
+            <input type="password" id="reg-password" placeholder="Min. 6 characters" autocomplete="new-password" oninput="updateStrength(this.value)">
+            <div class="password-strength">
+              <div class="strength-bar" id="s1"></div>
+              <div class="strength-bar" id="s2"></div>
+              <div class="strength-bar" id="s3"></div>
+              <div class="strength-bar" id="s4"></div>
+            </div>
+          </div>
+          <div id="reg-error" style="display:none"></div>
+          <button class="auth-submit" id="register-btn" onclick="handleRegister()">Create Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/seed.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Redirect if already logged in
+    Auth.redirectIfLoggedIn('feed.html');
+
+    function switchTab(tab) {
+      document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+      document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+      document.getElementById('login-panel').style.display = tab === 'login' ? '' : 'none';
+      document.getElementById('register-panel').style.display = tab === 'register' ? '' : 'none';
+    }
+
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      el.className = 'auth-error';
+      el.textContent = msg;
+      el.style.display = '';
+    }
+    function hideError(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    async function handleLogin() {
+      hideError('login-error');
+      const identity = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      if (!identity || !password) return showError('login-error', 'Please fill in all fields.');
+      const btn = document.getElementById('login-btn');
+      btn.disabled = true; btn.textContent = 'Signing in…';
+      const result = Auth.login(identity, password);
+      if (result.ok) {
+        window.location.href = 'feed.html';
+      } else {
+        showError('login-error', result.error);
+        btn.disabled = false; btn.textContent = 'Sign In';
+      }
+    }
+
+    async function handleRegister() {
+      hideError('reg-error');
+      const name     = document.getElementById('reg-name').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const email    = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+      if (!name || !username || !email || !password) return showError('reg-error', 'Please fill in all fields.');
+      const btn = document.getElementById('register-btn');
+      btn.disabled = true; btn.textContent = 'Creating account…';
+      const result = Auth.register({ name, username, email, password });
+      if (result.ok) {
+        window.location.href = 'feed.html';
+      } else {
+        showError('reg-error', result.error);
+        btn.disabled = false; btn.textContent = 'Create Account';
+      }
+    }
+
+    function updateStrength(password) {
+      let score = 0;
+      if (password.length >= 6)  score++;
+      if (password.length >= 10) score++;
+      if (/[A-Z]/.test(password) && /[0-9]/.test(password)) score++;
+      if (/[^A-Za-z0-9]/.test(password)) score++;
+      const cls = score <= 1 ? 'filled-weak' : score === 2 ? 'filled-medium' : 'filled-strong';
+      for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById('s' + i);
+        el.className = 'strength-bar' + (i <= score ? ' ' + cls : '');
+      }
+    }
+
+    // Enter key support
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      if (document.getElementById('login-panel').style.display !== 'none') handleLogin();
+      else handleRegister();
+    });
+  </script>
+</body>
+</html>
